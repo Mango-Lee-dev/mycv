@@ -1,1 +1,5 @@
 GET http://localhost:3000/auth/1
+
+
+### Find all users
+GET http://localhost:3000/auth
