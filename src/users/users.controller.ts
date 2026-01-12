@@ -17,6 +17,7 @@ import { UpdateUserDto } from './dtos/update-user-dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
 import { AuthService } from './auth.service';
+import { CurrentUser } from './decorators/current-user.decorator';
 
 interface SessionData {
   color?: string;
@@ -41,12 +42,17 @@ export class UsersController {
     return session.color;
   }
 
+  // @Get('/whoami')
+  // whoami(@Session() session: SessionData) {
+  //   if (!session.userId) {
+  //     throw new UnauthorizedException('you must be signed in');
+  //   }
+  //   return this.usersService.findOne(session.userId);
+  // }
+
   @Get('/whoami')
-  whoami(@Session() session: SessionData) {
-    if (!session.userId) {
-      throw new UnauthorizedException('you must be signed in');
-    }
-    return this.usersService.findOne(session.userId);
+  whoAmI(@CurrentUser() user: any) {
+    return user;
   }
 
   @Post('/signout')
