@@ -1,4 +1,5 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+import { User } from '../user.entity';
 
 interface SessionData {
   color?: string;
@@ -7,12 +8,12 @@ interface SessionData {
 
 interface RequestWithSession extends Request {
   session: SessionData;
+  currentUser?: User | null;
 }
 
 export const CurrentUser = createParamDecorator(
   (data: never, context: ExecutionContext) => {
     const request = context.switchToHttp().getRequest<RequestWithSession>();
-    console.log(request.session.userId);
-    return 'hi there';
+    return request.currentUser;
   },
 );
