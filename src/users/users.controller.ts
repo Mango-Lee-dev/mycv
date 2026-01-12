@@ -49,6 +49,11 @@ export class UsersController {
     return this.usersService.findOne(session.userId);
   }
 
+  @Post('/signout')
+  signout(@Session() session: SessionData) {
+    session.userId = undefined;
+  }
+
   @Post('/signup')
   async createUser(
     @Body() body: CreateUserDto,
