@@ -18,7 +18,7 @@ POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
-  "email": "test123@test.com",
+  "email": "test1234@test.com",
   "password": "12345656"
 }
 
@@ -28,3 +28,5 @@ GET http://localhost:3000/auth/colors/red
 ### Get color
 GET http://localhost:3000/auth/colors
 
+### Get current user
+GET http://localhost:3000/auth/whoami

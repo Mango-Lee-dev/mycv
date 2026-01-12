@@ -9,6 +9,7 @@ import {
   Post,
   Query,
   Session,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
@@ -38,6 +39,14 @@ export class UsersController {
   @Get('/colors')
   getColor(@Session() session: SessionData) {
     return session.color;
+  }
+
+  @Get('/whoami')
+  whoami(@Session() session: SessionData) {
+    if (!session.userId) {
+      throw new UnauthorizedException('you must be signed in');
+    }
+    return this.usersService.findOne(session.userId);
   }
 
   @Post('/signup')
