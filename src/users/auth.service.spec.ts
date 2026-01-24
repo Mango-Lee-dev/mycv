@@ -61,4 +61,13 @@ describe('AuthService', () => {
       expect(error).toBeInstanceOf(NotFoundException);
     }
   });
+
+  it('throws if an invalid password is provided', async () => {
+    try {
+      await service.signin('test@test.com', '12345656');
+      fail();
+    } catch (error) {
+      expect(error).toBeInstanceOf(BadRequestException);
+    }
+  });
 });
