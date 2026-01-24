@@ -70,4 +70,11 @@ describe('AuthService', () => {
       expect(error).toBeInstanceOf(BadRequestException);
     }
   });
+
+  it('returns a user if correct password is provided', async () => {
+    fakeUserService.find = () => Promise.resolve([{ email: 'test@test.com', password: '12345656' } as User]);
+    const user = await service.signin('test@test.com', '12345656');
+    expect(user).toBeDefined();
+
+  });
 });
