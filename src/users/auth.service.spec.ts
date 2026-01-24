@@ -23,7 +23,7 @@ describe('AuthService', () => {
     }).compile();
     service = module.get(AuthService);
   });
-  it('can create an instance of auth service', async () => {
+  it('can create an instance of auth service', () => {
     expect(service).toBeDefined();
   });
 
@@ -51,5 +51,14 @@ describe('AuthService', () => {
     await expect(
       service.signin('asdflkj@asdlfkj.com', 'passdflkj'),
     ).rejects.toThrow(NotFoundException);
+  });
+
+  it('throws if signin is called with an unused email', async () => {
+    try {
+      await service.signin('asdflkj@asdlfkj.com', 'passdflkj');
+      fail();
+    } catch (error) {
+      expect(error).toBeInstanceOf(NotFoundException);
+    }
   });
 });
